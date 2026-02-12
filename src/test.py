@@ -12,7 +12,7 @@ def test_interactive():
     model_path = 'models/word2vec_model/contract_w2v.model'
     
     if not os.path.exists(model_path):
-        print("❌ Model not found. Train it first!")
+        print(" Model not found. Train it first!")
         print("   Run: python src/step3_train_word2vec.py")
         return
     
@@ -52,7 +52,7 @@ def test_interactive():
                     for sim_word, score in similar:
                         print(f"  {sim_word:30s} {score:.3f}")
                 else:
-                    print(f"❌ '{word}' not in vocabulary")
+                    print(f"'{word}' not in vocabulary")
             
             elif command.startswith('add '):
                 parts = command.split()[1:]
@@ -66,9 +66,9 @@ def test_interactive():
                             print(f"  {word:30s} {score:.3f}")
                     else:
                         if word1 not in model.wv:
-                            print(f"❌ '{word1}' not in vocabulary")
+                            print(f"'{word1}' not in vocabulary")
                         if word2 not in model.wv:
-                            print(f"❌ '{word2}' not in vocabulary")
+                            print(f"'{word2}' not in vocabulary")
                 else:
                     print("Usage: add <word1> <word2>")
             
