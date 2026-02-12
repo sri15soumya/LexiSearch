@@ -31,7 +31,7 @@ def load_all_sentences(processed_folder='data/processed'):
     """
     Load all preprocessed sentences from JSON files
     """
-    print("\n📂 Loading preprocessed data...")
+    print("\nLoading preprocessed data...")
     
     all_sentences = []
     file_count = 0
@@ -41,7 +41,7 @@ def load_all_sentences(processed_folder='data/processed'):
     json_files = sorted([f for f in os.listdir(processed_folder) if f.endswith('.json')])
     
     if not json_files:
-        print(f"❌ ERROR: No JSON files found in {processed_folder}")
+        print(f" ERROR: No JSON files found in {processed_folder}")
         print("   Run preprocessing first: python src/step2_preprocess.py")
         return None
     
@@ -60,9 +60,9 @@ def load_all_sentences(processed_folder='data/processed'):
                 for sentence in sentences:
                     word_count += len(sentence)
         except Exception as e:
-            print(f"   ⚠️  Error loading {json_file}: {e}")
+            print(f"  Error loading {json_file}: {e}")
     
-    print(f"\n✅ Loaded successfully:")
+    print(f"\nLoaded successfully:")
     print(f"   Contracts: {file_count}")
     print(f"   Sentences: {len(all_sentences):,}")
     print(f"   Total words: {word_count:,}")
@@ -74,7 +74,7 @@ def analyze_vocabulary(sentences):
     """
     Analyze vocabulary before training
     """
-    print("\n📊 Analyzing vocabulary...")
+    print("\nAnalyzing vocabulary...")
     
     # Get all unique words
     vocabulary = set()
@@ -113,7 +113,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     print("TRAINING WORD2VEC MODEL")
     print("="*70 + "\n")
     
-    print("📋 Model Configuration:")
+    print("Model Configuration:")
     print("   Vector Size:    200  (dimensionality of word embeddings)")
     print("   Window Size:    10   (context words to consider)")
     print("   Min Count:      2    (ignore rare words)")
@@ -121,7 +121,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     print("   Epochs:         30   (training iterations)")
     print("   Workers:        4    (CPU cores)\n")
     
-    print("🚀 Starting training...\n")
+    print("Starting training...\n")
     
     start_time = time.time()
     
@@ -148,7 +148,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     
     training_time = time.time() - start_time
     
-    print(f"\n✅ Training complete!")
+    print(f"\nTraining complete!")
     print(f"   Time taken: {training_time:.1f} seconds ({training_time/60:.1f} minutes)")
     
     # Create save directory
@@ -157,7 +157,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     # Save model
     model_file = os.path.join(save_path, "contract_w2v.model")
     model.save(model_file)
-    print(f"\n💾 Model saved: {model_file}")
+    print(f"\n Model saved: {model_file}")
     
     # Save vocabulary
     vocab = list(model.wv.index_to_key)
@@ -165,7 +165,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     with open(vocab_file, 'w', encoding='utf-8') as f:
         for word in vocab:
             f.write(f"{word}\n")
-    print(f"💾 Vocabulary saved: {vocab_file} ({len(vocab)} words)")
+    print(f" Vocabulary saved: {vocab_file} ({len(vocab)} words)")
     
     # Save model info
     info = {
@@ -182,7 +182,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     info_file = os.path.join(save_path, "model_info.json")
     with open(info_file, 'w') as f:
         json.dump(info, f, indent=2)
-    print(f"💾 Model info saved: {info_file}")
+    print(f"Model info saved: {info_file}")
     
     return model
 
@@ -194,7 +194,7 @@ def test_model(model):
     print("MODEL TESTING")
     print("="*70 + "\n")
     
-    print("🔍 Testing word similarities:\n")
+    print("Testing word similarities:\n")
     
     # Test words (common contract terms)
     test_words = [
@@ -212,7 +212,7 @@ def test_model(model):
     
     for word in test_words:
         if word in model.wv:
-            print(f"📌 Words similar to '{word}':")
+            print(f" Words similar to '{word}':")
             try:
                 similar = model.wv.most_similar(word, topn=5)
                 for sim_word, score in similar:
@@ -220,12 +220,12 @@ def test_model(model):
                 print()
                 tested_count += 1
             except:
-                print(f"   ⚠️  Cannot compute similarity\n")
+                print(f"  Cannot compute similarity\n")
         else:
-            print(f"❌ '{word}' not in vocabulary\n")
+            print(f"'{word}' not in vocabulary\n")
     
     if tested_count == 0:
-        print("⚠️  No test words found in vocabulary")
+        print("No test words found in vocabulary")
         print("   This might indicate preprocessing issues")
         return
     
@@ -244,13 +244,13 @@ def test_model(model):
         # Check all words exist
         if all(word in model.wv for word in positive + negative):
             try:
-                print(f"🧮 {description} =")
+                print(f"{description} =")
                 result = model.wv.most_similar(positive=positive, negative=negative, topn=5)
                 for word, score in result:
                     print(f"   {word:25s} (similarity: {score:.3f})")
                 print()
             except:
-                print(f"   ⚠️  Cannot compute\n")
+                print(f"  Cannot compute\n")
     
     # Vocabulary statistics
     print("="*70)
@@ -258,7 +258,7 @@ def test_model(model):
     print("="*70 + "\n")
     
     vocab_size = len(model.wv)
-    print(f"📊 Total vocabulary size: {vocab_size:,} words")
+    print(f"Total vocabulary size: {vocab_size:,} words")
     
     # Check for specific legal terms
     legal_terms = {
@@ -280,7 +280,7 @@ def save_embeddings_for_visualization(model, save_path='models/CBOW_model'):
     """
     Save word embeddings in a format suitable for visualization
     """
-    print("\n💾 Saving embeddings for visualization...")
+    print("\nSaving embeddings for visualization...")
     
     embeddings_file = os.path.join(save_path, "embeddings.pkl")
     
@@ -309,13 +309,13 @@ def main():
     
     # Check if we have enough data
     if len(sentences) < 500:
-        print(f"\n⚠️  WARNING: Only {len(sentences)} sentences found")
+        print(f"\n WARNING: Only {len(sentences)} sentences found")
         print("   Recommended minimum: 1,000 sentences")
         print("   Model quality may be limited with small data")
         
         response = input("\n   Continue anyway? (yes/no): ").strip().lower()
         if response != 'yes':
-            print("\n❌ Training cancelled")
+            print("\nTraining cancelled")
             print("   Consider adding more contracts or checking preprocessing")
             return
     
@@ -333,16 +333,16 @@ def main():
     
     # Final summary
     print("\n" + "="*70)
-    print("TRAINING COMPLETE! 🎉")
+    print("TRAINING COMPLETE!")
     print("="*70)
-    print("\n✅ Your Word2Vec model is ready!")
-    print(f"✅ Model location: models/word2vec_model/contract_w2v.model")
-    print(f"\n📋 Next steps:")
+    print("\nYour Word2Vec model is ready!")
+    print(f"Model location: models/word2vec_model/contract_w2v.model")
+    print(f"\nNext steps:")
     print(f"   1. Build search engine: python src/step4_build_search.py")
     print(f"   2. Add anomaly detection: python src/step5_anomaly_detection.py")
     print(f"   3. Create web interface: python src/step6_web_app.py")
     
-    print("\n💡 You can also test your model interactively:")
+    print("\n You can also test your model interactively:")
     print("   python src/test_model_interactive.py")
 
 if __name__ == "__main__":
