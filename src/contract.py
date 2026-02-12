@@ -18,10 +18,10 @@ class ContractIndexBuilder:
         print("="*70)
         print("CONTRACT INDEX BUILDER")
         print("="*70 + "\n")
-        print("📂 Loading Word2Vec model...")
+        print("Loading Word2Vec model...")
         
         self.model = Word2Vec.load(model_path)
-        print(f"   ✅ Model loaded ({len(self.model.wv):,} words in vocabulary)\n")
+        print(f"  Model loaded ({len(self.model.wv):,} words in vocabulary)\n")
         
     def text_to_vector(self, text):
         """
@@ -106,7 +106,7 @@ class ContractIndexBuilder:
                 with open(processed_path, 'r', encoding='utf-8') as f:
                     sentences = json.load(f)
             except Exception as e:
-                print(f"⚠️ Error loading {json_file}: {e}")
+                print(f" Error loading {json_file}: {e}")
                 continue
 
             if len(sentences) < 5:
@@ -139,7 +139,7 @@ class ContractIndexBuilder:
                 index.append({
                     'contract_id': contract_id,
                     'clause_id': f"{contract_id}_c{clause_idx}",
-                    'clause_text': raw_text_chunk,  # 🔥 only 5 raw sentences
+                    'clause_text': raw_text_chunk,  # only 5 raw sentences
                     'clause_vector': clause_vector
                 })
 
@@ -149,7 +149,7 @@ class ContractIndexBuilder:
             if file_count % 50 == 0:
                 print(f"[{file_count}/{len(json_files)}] Indexed {total_clauses:,} clauses...")
 
-        print(f"\n✅ Indexing complete!")
+        print(f"\nIndexing complete!")
         print(f"Contracts: {len(json_files)}")
         print(f"Total clauses: {total_clauses:,}")
 
@@ -158,7 +158,7 @@ class ContractIndexBuilder:
     
     def save_index(self, index, output_file='data/contract_index.pkl'):
         """Save index to disk"""
-        print(f"\n💾 Saving index to disk...")
+        print(f"\nSaving index to disk...")
         
         Path(os.path.dirname(output_file)).mkdir(parents=True, exist_ok=True)
         
@@ -166,7 +166,7 @@ class ContractIndexBuilder:
             pickle.dump(index, f)
         
         size_mb = os.path.getsize(output_file) / (1024 * 1024)
-        print(f"   ✅ Saved: {output_file} ({size_mb:.1f} MB)")
+        print(f"  Saved: {output_file} ({size_mb:.1f} MB)")
     
     def test_search(self, index):
         """Quick test of the index"""
@@ -218,11 +218,11 @@ def main():
     builder.test_search(index)
     
     print("\n" + "="*70)
-    print("INDEX READY! 🎉")
+    print("INDEX READY!")
     print("="*70)
-    print("\n✅ Search index created successfully!")
-    print("📁 Location: data/contract_index.pkl")
-    print("\n📋 Next step:")
+    print("\nSearch index created successfully!")
+    print("Location: data/contract_index.pkl")
+    print("\n Next step:")
     print("   python src/step6_search_engine.py")
 
 if __name__ == "__main__":
