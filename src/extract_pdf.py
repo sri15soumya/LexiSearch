@@ -60,7 +60,7 @@ def extract_all_pdfs(
     Path(output_folder).mkdir(parents=True, exist_ok=True)
 
     pdf_files = [f for f in os.listdir(pdf_folder) if f.endswith(".pdf")]
-    print(f"📊 Found {len(pdf_files)} PDF files\n")
+    print(f"Found {len(pdf_files)} PDF files\n")
 
     successful = 0
     failed = []
@@ -76,7 +76,7 @@ def extract_all_pdfs(
 
         # Fallback to PyPDF2
         if not text or len(text.strip()) < min_text_length:
-            print("      🔄 Fallback to PyPDF2...")
+            print("   Fallback to PyPDF2...")
             text = extract_with_pypdf2(pdf_path)
             method = "pypdf2"
 
@@ -87,10 +87,10 @@ def extract_all_pdfs(
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(text)
 
-            print(f"      ✅ Extracted {len(text):,} chars ({method})")
+            print(f"  Extracted {len(text):,} chars ({method})")
             successful += 1
         else:
-            print("      ❌ Extraction failed")
+            print("Extraction failed")
             failed.append(pdf_file)
 
     elapsed = time.time() - start_time
@@ -98,13 +98,13 @@ def extract_all_pdfs(
     print("\n" + "=" * 70)
     print("EXTRACTION COMPLETE")
     print("=" * 70)
-    print(f"✅ Successful: {successful}/{len(pdf_files)}")
+    print(f"Successful: {successful}/{len(pdf_files)}")
     print(f"Failed: {len(failed)}")
     print(f"Time: {elapsed:.1f} seconds")
     print(f" Output: {output_folder}")
 
     if failed:
-        print("\n⚠️ Failed files:")
+        print("\n Failed files:")
         for f in failed[:10]:
             print(f"   - {f}")
 
