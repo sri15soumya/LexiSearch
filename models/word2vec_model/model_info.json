@@ -1,0 +1,10 @@
+{
+  "training_date": "2026-02-03 22:33:35",
+  "num_sentences": 94582,
+  "vocabulary_size": 21063,
+  "vector_size": 200,
+  "window_size": 10,
+  "min_count": 2,
+  "training_time_seconds": 108.3905942440033,
+  "epochs": 30
+}
