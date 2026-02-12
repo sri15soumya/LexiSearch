@@ -4,7 +4,7 @@ from src.search import ContractSearchEngine
 # Page config
 st.set_page_config(page_title="Contract Clause Search Engine", layout="wide")
 
-st.title("📄 Semantic Contract Clause Search")
+st.title(" Semantic Contract Clause Search")
 st.write("Search across 19,000+ legal clauses using semantic similarity.")
 
 # Load engine once
@@ -26,7 +26,7 @@ if st.button("Search"):
     else:
         results = engine.search(query, top_k=top_k)
 
-        st.subheader("🔍 Results")
+        st.subheader(" Results")
 
         for i, r in enumerate(results, 1):
             st.markdown(f"### {i}. {r['contract']}")
