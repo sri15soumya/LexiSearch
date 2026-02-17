@@ -52,7 +52,11 @@ def test_interactive():
                     for sim_word, score in similar:
                         print(f"  {sim_word:30s} {score:.3f}")
                 else:
+<<<<<<< HEAD
                     print(f"'{word}' not in vocabulary")
+=======
+                    print(f" '{word}' not in vocabulary")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
             
             elif command.startswith('add '):
                 parts = command.split()[1:]
@@ -66,9 +70,15 @@ def test_interactive():
                             print(f"  {word:30s} {score:.3f}")
                     else:
                         if word1 not in model.wv:
+<<<<<<< HEAD
                             print(f"'{word1}' not in vocabulary")
                         if word2 not in model.wv:
                             print(f"'{word2}' not in vocabulary")
+=======
+                            print(f" '{word1}' not in vocabulary")
+                        if word2 not in model.wv:
+                            print(f" '{word2}' not in vocabulary")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
                 else:
                     print("Usage: add <word1> <word2>")
             

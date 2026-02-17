@@ -60,7 +60,11 @@ def extract_all_pdfs(
     Path(output_folder).mkdir(parents=True, exist_ok=True)
 
     pdf_files = [f for f in os.listdir(pdf_folder) if f.endswith(".pdf")]
+<<<<<<< HEAD
     print(f"Found {len(pdf_files)} PDF files\n")
+=======
+    print(f" Found {len(pdf_files)} PDF files\n")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
 
     successful = 0
     failed = []
@@ -76,7 +80,11 @@ def extract_all_pdfs(
 
         # Fallback to PyPDF2
         if not text or len(text.strip()) < min_text_length:
+<<<<<<< HEAD
             print("   Fallback to PyPDF2...")
+=======
+            print("  Fallback to PyPDF2...")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
             text = extract_with_pypdf2(pdf_path)
             method = "pypdf2"
 
@@ -87,10 +95,17 @@ def extract_all_pdfs(
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(text)
 
+<<<<<<< HEAD
             print(f"  Extracted {len(text):,} chars ({method})")
             successful += 1
         else:
             print("Extraction failed")
+=======
+            print(f" Extracted {len(text):,} chars ({method})")
+            successful += 1
+        else:
+            print(" Extraction failed")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
             failed.append(pdf_file)
 
     elapsed = time.time() - start_time
@@ -98,7 +113,11 @@ def extract_all_pdfs(
     print("\n" + "=" * 70)
     print("EXTRACTION COMPLETE")
     print("=" * 70)
+<<<<<<< HEAD
     print(f"Successful: {successful}/{len(pdf_files)}")
+=======
+    print(f" Successful: {successful}/{len(pdf_files)}")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     print(f"Failed: {len(failed)}")
     print(f"Time: {elapsed:.1f} seconds")
     print(f" Output: {output_folder}")

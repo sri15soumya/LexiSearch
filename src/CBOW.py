@@ -31,7 +31,11 @@ def load_all_sentences(processed_folder='data/processed'):
     """
     Load all preprocessed sentences from JSON files
     """
+<<<<<<< HEAD
     print("\nLoading preprocessed data...")
+=======
+    print("\n Loading preprocessed data...")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     all_sentences = []
     file_count = 0
@@ -41,7 +45,11 @@ def load_all_sentences(processed_folder='data/processed'):
     json_files = sorted([f for f in os.listdir(processed_folder) if f.endswith('.json')])
     
     if not json_files:
+<<<<<<< HEAD
         print(f" ERROR: No JSON files found in {processed_folder}")
+=======
+        print(f"ERROR: No JSON files found in {processed_folder}")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
         print("   Run preprocessing first: python src/step2_preprocess.py")
         return None
     
@@ -62,7 +70,11 @@ def load_all_sentences(processed_folder='data/processed'):
         except Exception as e:
             print(f"  Error loading {json_file}: {e}")
     
+<<<<<<< HEAD
     print(f"\nLoaded successfully:")
+=======
+    print(f"\n Loaded successfully:")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     print(f"   Contracts: {file_count}")
     print(f"   Sentences: {len(all_sentences):,}")
     print(f"   Total words: {word_count:,}")
@@ -113,7 +125,11 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     print("TRAINING WORD2VEC MODEL")
     print("="*70 + "\n")
     
+<<<<<<< HEAD
     print("Model Configuration:")
+=======
+    print(" Model Configuration:")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     print("   Vector Size:    200  (dimensionality of word embeddings)")
     print("   Window Size:    10   (context words to consider)")
     print("   Min Count:      2    (ignore rare words)")
@@ -121,7 +137,11 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     print("   Epochs:         30   (training iterations)")
     print("   Workers:        4    (CPU cores)\n")
     
+<<<<<<< HEAD
     print("Starting training...\n")
+=======
+    print(" Starting training...\n")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     start_time = time.time()
     
@@ -165,7 +185,11 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     with open(vocab_file, 'w', encoding='utf-8') as f:
         for word in vocab:
             f.write(f"{word}\n")
+<<<<<<< HEAD
     print(f" Vocabulary saved: {vocab_file} ({len(vocab)} words)")
+=======
+    print(f"Vocabulary saved: {vocab_file} ({len(vocab)} words)")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     # Save model info
     info = {
@@ -182,7 +206,11 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     info_file = os.path.join(save_path, "model_info.json")
     with open(info_file, 'w') as f:
         json.dump(info, f, indent=2)
+<<<<<<< HEAD
     print(f"Model info saved: {info_file}")
+=======
+    print(f" Model info saved: {info_file}")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     return model
 
@@ -194,7 +222,11 @@ def test_model(model):
     print("MODEL TESTING")
     print("="*70 + "\n")
     
+<<<<<<< HEAD
     print("Testing word similarities:\n")
+=======
+    print(" Testing word similarities:\n")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     # Test words (common contract terms)
     test_words = [
@@ -220,12 +252,20 @@ def test_model(model):
                 print()
                 tested_count += 1
             except:
+<<<<<<< HEAD
                 print(f"  Cannot compute similarity\n")
+=======
+                print(f" Cannot compute similarity\n")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
         else:
             print(f"'{word}' not in vocabulary\n")
     
     if tested_count == 0:
+<<<<<<< HEAD
         print("No test words found in vocabulary")
+=======
+        print(" No test words found in vocabulary")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
         print("   This might indicate preprocessing issues")
         return
     
@@ -244,13 +284,21 @@ def test_model(model):
         # Check all words exist
         if all(word in model.wv for word in positive + negative):
             try:
+<<<<<<< HEAD
                 print(f"{description} =")
+=======
+                print(f" {description} =")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
                 result = model.wv.most_similar(positive=positive, negative=negative, topn=5)
                 for word, score in result:
                     print(f"   {word:25s} (similarity: {score:.3f})")
                 print()
             except:
+<<<<<<< HEAD
                 print(f"  Cannot compute\n")
+=======
+                print(f" Cannot compute\n")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     # Vocabulary statistics
     print("="*70)
@@ -269,7 +317,7 @@ def test_model(model):
         'Legal Concepts': ['force_majeure', 'governing_law', 'dispute_resolution']
     }
     
-    print("\n📋 Legal Terms Coverage:\n")
+    print("\nLegal Terms Coverage:\n")
     for category, terms in legal_terms.items():
         found = [t for t in terms if t in model.wv]
         print(f"   {category:20s}: {len(found)}/{len(terms)} found")
@@ -280,7 +328,11 @@ def save_embeddings_for_visualization(model, save_path='models/CBOW_model'):
     """
     Save word embeddings in a format suitable for visualization
     """
+<<<<<<< HEAD
     print("\nSaving embeddings for visualization...")
+=======
+    print("\n Saving embeddings for visualization...")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     
     embeddings_file = os.path.join(save_path, "embeddings.pkl")
     
@@ -315,7 +367,11 @@ def main():
         
         response = input("\n   Continue anyway? (yes/no): ").strip().lower()
         if response != 'yes':
+<<<<<<< HEAD
             print("\nTraining cancelled")
+=======
+            print("\n Training cancelled")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
             print("   Consider adding more contracts or checking preprocessing")
             return
     
@@ -335,9 +391,15 @@ def main():
     print("\n" + "="*70)
     print("TRAINING COMPLETE!")
     print("="*70)
+<<<<<<< HEAD
     print("\nYour Word2Vec model is ready!")
     print(f"Model location: models/word2vec_model/contract_w2v.model")
     print(f"\nNext steps:")
+=======
+    print("\n Your Word2Vec model is ready!")
+    print(f" Model location: models/word2vec_model/contract_w2v.model")
+    print(f"\n Next steps:")
+>>>>>>> 59fd01f (Updated search pipeline and word2vec implementation)
     print(f"   1. Build search engine: python src/step4_build_search.py")
     print(f"   2. Add anomaly detection: python src/step5_anomaly_detection.py")
     print(f"   3. Create web interface: python src/step6_web_app.py")

@@ -91,7 +91,7 @@ class ContractIndexBuilder:
             if f.endswith('.json')
         ])
 
-        print(f"📊 Found {len(json_files)} contracts to index\n")
+        print(f" Found {len(json_files)} contracts to index\n")
 
         total_clauses = 0
 
@@ -177,7 +177,7 @@ class ContractIndexBuilder:
         print("="*70 + "\n")
         
         test_query = "termination"
-        print(f"🔍 Test query: '{test_query}'\n")
+        print(f" Test query: '{test_query}'\n")
         
         # Convert query to vector
         query_vector = self.text_to_vector(test_query)
@@ -199,7 +199,7 @@ class ContractIndexBuilder:
         # Sort and show top 3
         results.sort(key=lambda x: x['score'], reverse=True)
         
-        print("📋 Top 3 results:\n")
+        print(" Top 3 results:\n")
         for i, r in enumerate(results[:10], 1):
             print(f"{i}. {r['contract']} (score: {r['score']:.3f})")
             print(f"   {r['text']}\n")

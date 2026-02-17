@@ -148,7 +148,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     
     training_time = time.time() - start_time
     
-    print(f"\n Training complete!")
+    print(f"\nTraining complete!")
     print(f"   Time taken: {training_time:.1f} seconds ({training_time/60:.1f} minutes)")
     
     # Create save directory
@@ -165,7 +165,7 @@ def train_word2vec_model(sentences, save_path='models/word2vec_model'):
     with open(vocab_file, 'w', encoding='utf-8') as f:
         for word in vocab:
             f.write(f"{word}\n")
-    print(f" Vocabulary saved: {vocab_file} ({len(vocab)} words)")
+    print(f"Vocabulary saved: {vocab_file} ({len(vocab)} words)")
     
     # Save model info
     info = {
@@ -212,7 +212,7 @@ def test_model(model):
     
     for word in test_words:
         if word in model.wv:
-            print(f" Words similar to '{word}':")
+            print(f"Words similar to '{word}':")
             try:
                 similar = model.wv.most_similar(word, topn=5)
                 for sim_word, score in similar:
@@ -222,7 +222,7 @@ def test_model(model):
             except:
                 print(f"  Cannot compute similarity\n")
         else:
-            print(f"'{word}' not in vocabulary\n")
+            print(f" '{word}' not in vocabulary\n")
     
     if tested_count == 0:
         print("  No test words found in vocabulary")
@@ -244,13 +244,13 @@ def test_model(model):
         # Check all words exist
         if all(word in model.wv for word in positive + negative):
             try:
-                print(f"{description} =")
+                print(f" {description} =")
                 result = model.wv.most_similar(positive=positive, negative=negative, topn=5)
                 for word, score in result:
                     print(f"   {word:25s} (similarity: {score:.3f})")
                 print()
             except:
-                print(f" Cannot compute\n")
+                print(f"  Cannot compute\n")
     
     # Vocabulary statistics
     print("="*70)
@@ -258,7 +258,7 @@ def test_model(model):
     print("="*70 + "\n")
     
     vocab_size = len(model.wv)
-    print(f" Total vocabulary size: {vocab_size:,} words")
+    print(f"Total vocabulary size: {vocab_size:,} words")
     
     # Check for specific legal terms
     legal_terms = {
@@ -269,7 +269,7 @@ def test_model(model):
         'Legal Concepts': ['force_majeure', 'governing_law', 'dispute_resolution']
     }
     
-    print("\n📋 Legal Terms Coverage:\n")
+    print("\n Legal Terms Coverage:\n")
     for category, terms in legal_terms.items():
         found = [t for t in terms if t in model.wv]
         print(f"   {category:20s}: {len(found)}/{len(terms)} found")
@@ -280,7 +280,7 @@ def save_embeddings_for_visualization(model, save_path='models/word2vec_model'):
     """
     Save word embeddings in a format suitable for visualization
     """
-    print("\nSaving embeddings for visualization...")
+    print("\n Saving embeddings for visualization...")
     
     embeddings_file = os.path.join(save_path, "embeddings.pkl")
     
@@ -309,7 +309,7 @@ def main():
     
     # Check if we have enough data
     if len(sentences) < 500:
-        print(f"\n  WARNING: Only {len(sentences)} sentences found")
+        print(f"\n WARNING: Only {len(sentences)} sentences found")
         print("   Recommended minimum: 1,000 sentences")
         print("   Model quality may be limited with small data")
         
@@ -333,17 +333,10 @@ def main():
     
     # Final summary
     print("\n" + "="*70)
-    print("TRAINING COMPLETE! ")
+    print("TRAINING COMPLETE!")
     print("="*70)
-    print("\n Your Word2Vec model is ready!")
-    print(f" Model location: models/word2vec_model/contract_w2v.model")
-    print(f"\n Next steps:")
-    print(f"   1. Build search engine: python src/step4_build_search.py")
-    print(f"   2. Add anomaly detection: python src/step5_anomaly_detection.py")
-    print(f"   3. Create web interface: python src/step6_web_app.py")
-    
-    print("\n You can also test your model interactively:")
-    print("   python src/test_model_interactive.py")
+    print("\nYour Word2Vec model is ready!")
+   
 
 if __name__ == "__main__":
     main()
